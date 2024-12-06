@@ -6,7 +6,7 @@ athletes_df = pd.read_csv('athlete_events.csv')
 region_df = pd.read_csv('noc_regions.csv')
 import preprocessor, helper
 
-st.sidebar.header("Olympics Data Analysis")
+st.sidebar.title("Olympics Data Analysis")
 df = preprocessor.preprocess(df, region_df)
 
 user_menu = st.sidebar.radio(
@@ -32,12 +32,34 @@ if user_menu == "Medal Tally":
 
     st.table(medal_tally)
 
+if user_menu == "Overall Analysis":
+    st.title("TOP STATISTICS")
+    editions = df["Year"].unique().shape[0] - 1
+    cities = df["City"].unique().shape[0]
+    sports = df["Sport"].unique().shape[0]
+    events = df["Event"].unique().shape[0]
+    athletes = df["Name"].unique().shape[0]
+    nations = df["region"].unique().shape[0]
 
-if user_menu =="Overall Analysis":
-    editions=df["Year"].unique().shape[0]-1
-    cities=df["City"].unique().shape[0]
-    sports=df["Sports"].unique().shape[0]
-    events=df["Event"].unique().shape[0]
-    athletes=df["Name"].unique().shape[0]
-    nations=df["region"].unique().shape[0]
+    col1,col2,col3 = st.columns(3)
+    with col1:
+        st.header("Editions")
+        st.title(editions)
+    with col2:
+        st.header("Cities")
+        st.title(cities)
+    with col3:
+        st.header("Sports")
+        st.title(sports)
 
+    col5,  col7,col6 = st.columns(3)
+
+    with col5:
+        st.header("Events")
+        st.title(events)
+    with col7:
+        st.header("Nations")
+        st.title(nations)
+    with col6:
+        st.header("Athletes")
+        st.title(athletes)
