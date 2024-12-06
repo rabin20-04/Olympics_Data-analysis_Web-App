@@ -1,3 +1,4 @@
+import pandas as pd
 import numpy as np
 
 
@@ -17,18 +18,20 @@ def fetch_medal_tally(df, country, year):
 
     if flag == 1:
         x = temp_df.groupby("Year").sum()[["Gold", "Bronze", "Silver"]].sort_values("Year").reset_index()
+
     else:
         x = temp_df.groupby("region").sum()[["Gold", "Bronze", "Silver"]].sort_values("Gold",
                                                                                       ascending=False).reset_index()
 
     x["Total"] = (x["Gold"] + x["Silver"] + x["Bronze"])
-    x["Total"]=x["Total"].astype("int")
+    x["Total"] = x["Total"].astype("str")
 
-    x["Gold"] = x["Gold"].astype("float")
-    x["Silver"] = x["Silver"].astype("int")
-    x["Bronze"] = x["Bronze"].astype("int")
+    x["Gold"] = x["Gold"].astype("str")
+    x["Silver"] = x["Silver"].astype("str")
+    x["Bronze"] = x["Bronze"].astype("str")
     if "Year" in x.columns:
-        x["Year"] = x["Year"].astype("int")
+        x["Year"] = x["Year"].astype("str")
+
     return x
 
 
@@ -47,6 +50,7 @@ def medal_tally(df):
 def country_year_list(df):
     year_list = df["Year"].unique().tolist()
     year_list.sort()
+
     year_list.insert(0, "Overall")
     countries_list = np.unique(df["region"].dropna().values).tolist()
     countries_list.sort()

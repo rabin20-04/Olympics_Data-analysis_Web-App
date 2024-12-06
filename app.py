@@ -21,4 +21,13 @@ if user_menu == "Medal Tally":
     selected_year = st.sidebar.selectbox("Select Year", years)
     selected_country = st.sidebar.selectbox("Select Country", country)
     medal_tally = helper.fetch_medal_tally(df, selected_country, selected_year)
+    if selected_year != "Overall" and selected_country != "Overall":
+        st.header("Medal Tally of " + selected_country + " in the Year " + str(selected_year))
+    elif selected_year != "Overall" and selected_country == "Overall":
+        st.header("Overall Medal Tally in the year " + str(selected_year))
+    elif selected_year == "Overall" and selected_country == "Overall":
+        st.header("Overall Medal Tally")
+    elif selected_year == "Overall" and selected_country != "Overall":
+        st.header("Overall Performance of " + selected_country)
+
     st.dataframe(medal_tally)
