@@ -1,3 +1,4 @@
+import numpy as np
 def medal_tally(df):
     medal_tally=df.drop_duplicates(subset=['Team','NOC','Year','Sport','Event','Medal'])
     medal_tally=medal_tally.groupby("region").sum()[["Gold","Bronze","Silver"]].sort_values("Gold",ascending=False)
@@ -7,3 +8,13 @@ def medal_tally(df):
     medal_tally["Silver"]=medal_tally["Silver"].astype("int")
     medal_tally["Bronze"]=medal_tally["Bronze"].astype("int")
     return medal_tally
+
+def country_year_list(df):
+    year_list=df["Year"].unique().tolist()
+    year_list.sort()
+    year_list.insert(0,"Overall")
+
+    countries_list=np.unique(df["region"].dropna().values).tolist()
+    countries_list.sort()
+    countries_list.insert(0,"Overall")
+    return year_list,countries_list
