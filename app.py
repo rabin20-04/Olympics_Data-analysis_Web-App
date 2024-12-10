@@ -1,6 +1,7 @@
 import streamlit as st
 import pandas as pd
 import plotly.express as px
+import seaborn as sns
 
 df = pd.read_csv('athlete_events.csv')
 athletes_df = pd.read_csv('athlete_events.csv')
@@ -78,4 +79,8 @@ if user_menu == "Overall Analysis":
     st.header("Athletes participation over the Years")
     athletes_participating_overtime = helper.athletes_participating_overtime(df)
     fig3 = px.line(athletes_participating_overtime, x="Year", y="Athletes")
+    st.plotly_chart(fig3)st.markdown("--------------------------------------------------------------------------------")
+    st.header("Events overall representation over the Years")
+    overtime = helper.events_overall_representation(df)
+    fig3 = sns.heatmap(overtime, x="Event", y="Year")
     st.plotly_chart(fig3)

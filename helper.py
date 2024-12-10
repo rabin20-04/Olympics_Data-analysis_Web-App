@@ -1,6 +1,6 @@
 import pandas as pd
 import numpy as np
-
+import matplotlib
 
 def fetch_medal_tally(df, country, year):
     medal_df = df.drop_duplicates(subset=["Team", "NOC", "Year", "Sport", "Event", "Medal"])
@@ -59,9 +59,9 @@ def country_year_list(df):
 
 
 def participating_nation_overtime(df):
-    unique_df = df.drop_duplicates(["Year", "region"])
+    unique_df1 = df.drop_duplicates(["Year", "region"])
 
-    nation_over_time = unique_df["Year"].value_counts().reset_index()
+    nation_over_time = unique_df1["Year"].value_counts().reset_index()
 
     nation_over_time.columns = ["Year", "No.of Countries"]
 
@@ -72,9 +72,9 @@ def participating_nation_overtime(df):
 
 
 def events_played_overtime(df):
-    unique_df = df.drop_duplicates(["Year", "Event"])
+    unique_df2 = df.drop_duplicates(["Year", "Event"])
 
-    events_over_time = unique_df["Year"].value_counts().reset_index()
+    events_over_time = unique_df2["Year"].value_counts().reset_index()
 
     events_over_time.columns = ["Year", "No. of Events"]
 
@@ -83,9 +83,9 @@ def events_played_overtime(df):
 
     return events_over_time
 def athletes_participating_overtime(df):
-    unique_df = df.drop_duplicates(["Year", "Name"])
+    unique_df3 = df.drop_duplicates(["Year", "Name"])
 
-    athletes_participating_over_time = unique_df["Year"].value_counts().reset_index()
+    athletes_participating_over_time = unique_df3["Year"].value_counts().reset_index()
 
     athletes_participating_over_time.columns = ["Year", "Athletes"]
 
@@ -93,3 +93,12 @@ def athletes_participating_overtime(df):
     athletes_participating_over_time = athletes_participating_over_time.sort_values(by="Year")
 
     return athletes_participating_over_time
+
+def events_overall_representation(df):
+    unique_df4 = df.drop_duplicates(["Year","Sport","Event"])
+
+    events_overall_representation = (unique_df4.pivot_table(index="Sport",columns="Year",values="Event",aggfunc="count").fillna(0).astype("int"),annot=True)
+
+
+
+    return events_overall_representation
