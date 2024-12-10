@@ -1,6 +1,6 @@
 import pandas as pd
 import numpy as np
-import matplotlib
+import matplotlib.pyplot as plt
 
 def fetch_medal_tally(df, country, year):
     medal_df = df.drop_duplicates(subset=["Team", "NOC", "Year", "Sport", "Event", "Medal"])

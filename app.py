@@ -2,6 +2,7 @@ import streamlit as st
 import pandas as pd
 import plotly.express as px
 import seaborn as sns
+import matplotlib.pyplot as plt
 
 df = pd.read_csv('athlete_events.csv')
 athletes_df = pd.read_csv('athlete_events.csv')
