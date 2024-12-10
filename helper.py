@@ -97,7 +97,7 @@ def athletes_participating_overtime(df):
 def events_overall_representation(df):
     unique_df4 = df.drop_duplicates(["Year","Sport","Event"])
 
-    events_overall_representation = (unique_df4.pivot_table(index="Sport",columns="Year",values="Event",aggfunc="count").fillna(0).astype("int"),annot=True)
+    events_overall_representation = (unique_df4.pivot_table(index="Sport",columns="Year",values="Event",aggfunc="count").fillna(0).astype("int"))
 
 
 
