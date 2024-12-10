@@ -69,3 +69,27 @@ def participating_nation_overtime(df):
     nation_over_time = nation_over_time.sort_values(by="Year")
 
     return nation_over_time
+
+
+def events_played_overtime(df):
+    unique_df = df.drop_duplicates(["Year", "Event"])
+
+    events_over_time = unique_df["Year"].value_counts().reset_index()
+
+    events_over_time.columns = ["Year", "No. of Events"]
+
+    # Sort the DataFrame by 'Year' (the actual column, not 'index')
+    events_over_time = events_over_time.sort_values(by="Year")
+
+    return events_over_time
+def athletes_participating_overtime(df):
+    unique_df = df.drop_duplicates(["Year", "Name"])
+
+    athletes_participating_over_time = unique_df["Year"].value_counts().reset_index()
+
+    athletes_participating_over_time.columns = ["Year", "Athletes"]
+
+    # Sort the DataFrame by 'Year' (the actual column, not 'index')
+    athletes_participating_over_time = athletes_participating_over_time.sort_values(by="Year")
+
+    return athletes_participating_over_time

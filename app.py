@@ -1,5 +1,6 @@
 import streamlit as st
 import pandas as pd
+import plotly.express as px
 
 df = pd.read_csv('athlete_events.csv')
 athletes_df = pd.read_csv('athlete_events.csv')
@@ -41,7 +42,7 @@ if user_menu == "Overall Analysis":
     athletes = df["Name"].unique().shape[0]
     nations = df["region"].unique().shape[0]
 
-    col1,col2,col3 = st.columns(3)
+    col1, col2, col3 = st.columns(3)
     with col1:
         st.header("Editions")
         st.title(editions)
@@ -52,7 +53,7 @@ if user_menu == "Overall Analysis":
         st.header("Sports")
         st.title(sports)
 
-    col5,  col7,col6 = st.columns(3)
+    col5, col7, col6 = st.columns(3)
 
     with col5:
         st.header("Events")
@@ -63,3 +64,18 @@ if user_menu == "Overall Analysis":
     with col6:
         st.header("Athletes")
         st.title(athletes)
+    st.markdown("--------------------------------------------------------------------------------")
+    st.header("Participation of the countries over the Years")
+    nations_over_time = helper.participating_nation_overtime(df)
+    fig1 = px.line(nations_over_time, x="Year", y="No.of Countries")
+    st.plotly_chart(fig1)
+    st.markdown("--------------------------------------------------------------------------------")
+    st.header("No.of events occurring over the Years")
+    events_over_time = helper.events_played_overtime(df)
+    fig2 = px.line(events_over_time, x="Year", y="No. of Events")
+    st.plotly_chart(fig2)
+    st.markdown("--------------------------------------------------------------------------------")
+    st.header("Athletes participation over the Years")
+    athletes_participating_overtime = helper.athletes_participating_overtime(df)
+    fig3 = px.line(athletes_participating_overtime, x="Year", y="Athletes")
+    st.plotly_chart(fig3)
