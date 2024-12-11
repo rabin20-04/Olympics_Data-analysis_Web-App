@@ -90,3 +90,8 @@ if user_menu == "Overall Analysis":
     x=df.drop_duplicates(["Year","Sport","Event"])
     heatmap_fig=sns.heatmap(x.pivot_table(index="Sport",columns="Year",values="Event",aggfunc="count").fillna(0).astype("int"),annot=True)
     st.pyplot(fig)
+
+    st.markdown("----------")
+    st.header("Top 15 athletes of all Sports")
+    y=helper.most_successful(df, "Overall")
+    st.table("y")

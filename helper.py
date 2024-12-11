@@ -94,3 +94,17 @@ def athletes_participating_overtime(df):
 
     return athletes_participating_over_time
 
+
+def most_successful(df, sport):
+    temp_df = df.dropna(subset=["Medal"])
+    if sport != "Overall":
+        temp_df = temp_df[temp_df['Sport'] == sport]
+
+    x = temp_df["Name"].value_counts().reset_index().merge(df, on="Name", how="left")[
+        ["Name", "count", "Sport", "region"]].drop_duplicates(["Name", "Sport"])
+    x.rename(columns={'count': 'Medals'}, inplace=True)
+    return x.head(15)
+
+
+
+
