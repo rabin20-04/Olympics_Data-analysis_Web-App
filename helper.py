@@ -79,7 +79,6 @@ def events_played_overtime(df):
 
     events_over_time.columns = ["Year", "No. of Events"]
 
-
     events_over_time = events_over_time.sort_values(by="Year")
 
     return events_over_time
@@ -91,7 +90,6 @@ def athletes_participating_overtime(df):
     athletes_participating_over_time = unique_df3["Year"].value_counts().reset_index()
 
     athletes_participating_over_time.columns = ["Year", "Athletes"]
-
 
     athletes_participating_over_time = athletes_participating_over_time.sort_values(by="Year")
 
@@ -119,30 +117,29 @@ def most_successful(df, sport):
 
     return final_df
 
+
 def country_vs_medal_graph(df, country):
     country_plot_df = df.dropna(subset=["Medal"])
     country_plot_df.drop_duplicates(subset=["Team", "NOC", "Games", "Year", "City", "Sport", "Event", "Medal"],
                                     inplace=True)
     country_plot = country_plot_df[country_plot_df["region"] == country]
     final_plot_df = country_plot.groupby("Year").count()["Medal"].reset_index()
-    final_plot_df.rename(columns={"Medal":"Medals"},inplace=True)
+    final_plot_df.rename(columns={"Medal": "Medals"}, inplace=True)
     return final_plot_df
-
 
 
 def country_heatmap(df, country):
     country_heat_plot_df = df.dropna(subset=["Medal"])
 
-
     country_heat_plot_df.drop_duplicates(subset=["Team", "NOC", "Games", "Year", "City", "Sport", "Event", "Medal"],
-                                    inplace=True)
+                                         inplace=True)
     country_heat_plot = country_heat_plot_df[country_heat_plot_df["region"] == country]
-    final_df=country_heat_plot.pivot_table(index="Sport",columns="Year" ,values="Medal",aggfunc="count").fillna(0)
+    final_df = country_heat_plot.pivot_table(index="Sport", columns="Year", values="Medal", aggfunc="count").fillna(0)
     return final_df
+
 
 def most_successful_country_wise(df, country):
     temp_df = df.dropna(subset=["Medal"])
-
 
     temp_df = temp_df[temp_df['region'] == country]
 

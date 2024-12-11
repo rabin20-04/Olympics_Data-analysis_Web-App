@@ -142,4 +142,34 @@ if user_menu == "Athlete-Wise-Analysis":
     fig_athlete_wise = ff.create_distplot([x1, x2, x3, x4],
                                           ["Overall Age", "Gold Medalist", "Silver Medalist", "Bronze Medalist"],
                                           show_hist=False, show_rug=False)
+    fig_athlete_wise.update_layout(autosize=False, width=1000, height=600,
+                                   xaxis_title="Age", )
     st.plotly_chart(fig_athlete_wise)
+    st.markdown("------")
+    st.title("Distribution of :blue[Age] in Sports")
+    sport_list = ['Basketball', 'Judo', 'Football', 'Tug-Of-War', 'Speed Skating', 'Cross Country Skiing', 'Athletics',
+                  'Ice Hockey', 'Swimming', 'Badminton', 'Sailing', 'Biathlon', 'Gymnastics', 'Art Competitions',
+                  'Alpine Skiing', 'Handball', 'Weightlifting', 'Wrestling', 'Luge', 'Water Polo', 'Hockey', 'Rowing',
+                  'Bobsleigh', 'Fencing', 'Equestrianism', 'Shooting', 'Boxing', 'Taekwondo', 'Cycling', 'Diving',
+                  'Canoeing', 'Tennis', 'Modern Pentathlon', 'Figure Skating', 'Golf', 'Softball', 'Archery',
+                  'Volleyball', 'Synchronized Swimming', 'Table Tennis', 'Nordic Combined', 'Baseball',
+                  'Rhythmic Gymnastics', 'Freestyle Skiing']
+    x = []
+    name = []
+
+    for item in sport_list:
+        temp_sport_df = athletes_df[athletes_df["Sport"] == item]
+
+        age_data = temp_sport_df[temp_sport_df["Medal"] == "Gold"]["Age"].dropna()
+
+        if not age_data.empty and len(age_data) > 1:
+            x.append(age_data)
+            name.append(item)
+
+    if x:
+        fig_sport_wise = ff.create_distplot(x, name, show_hist=False, show_rug=False)
+        fig_sport_wise.update_layout(autosize=False, width=1000, height=600,
+                                     xaxis_title="Age", )
+        st.plotly_chart(fig_sport_wise)
+    else:
+        st.write("No valid data available for the distribution plot.")
