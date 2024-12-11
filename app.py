@@ -131,3 +131,15 @@ if user_menu == "Country-Wise-Analysis":
     st.title("Top :blue[10] athletes of " + selected_country)
     top_country_wise = helper.most_successful_country_wise(df, selected_country)
     st.table(top_country_wise)
+
+if user_menu == "Athlete-Wise-Analysis":
+    st.header("Distribution of Age with Medals")
+    athletes_df = df.drop_duplicates(subset=["Name", "region"])
+    x1 = athletes_df["Age"].dropna()
+    x2 = athletes_df[athletes_df["Medal"] == "Gold"]["Age"].dropna()
+    x3 = athletes_df[athletes_df["Medal"] == "Silver"]["Age"].dropna()
+    x4 = athletes_df[athletes_df["Medal"] == "Bronze"]["Age"].dropna()
+    fig_athlete_wise = ff.create_distplot([x1, x2, x3, x4],
+                                          ["Overall Age", "Gold Medalist", "Silver Medalist", "Bronze Medalist"],
+                                          show_hist=False, show_rug=False)
+    st.plotly_chart(fig_athlete_wise)
