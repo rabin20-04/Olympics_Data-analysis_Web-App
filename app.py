@@ -86,14 +86,18 @@ if user_menu == "Overall Analysis":
     st.markdown(" #### Just found out! ")
     st.markdown("-  Cricket has only been played once in the history of the modern Olympics.")
     st.markdown("-  Taekwondo was added to the Olympics in 2000.")
-    fig,ax=plt.subplots(figsize=(16,16))
-    x=df.drop_duplicates(["Year","Sport","Event"])
-    heatmap_fig=sns.heatmap(x.pivot_table(index="Sport",columns="Year",values="Event",aggfunc="count").fillna(0).astype("int"),annot=True)
+    fig, ax = plt.subplots(figsize=(16, 16))
+    x = df.drop_duplicates(["Year", "Sport", "Event"])
+    heatmap_fig = sns.heatmap(
+        x.pivot_table(index="Sport", columns="Year", values="Event", aggfunc="count").fillna(0).astype("int"),
+        annot=True)
     st.pyplot(fig)
 
     st.markdown("----------")
     st.header("Most successful Athletes")
-
-    y=helper.most_successful(df, "Swimming")
+    sport_list = df["Sport"].unique().tolist()
+    sport_list.sort()
+    sport_list.insert(0, "Overall")
+    selected_sport = st.selectbox("Select a sport", sport_list)
+    y = helper.most_successful(df, selected_sport)
     st.table(y)
-

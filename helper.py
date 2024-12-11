@@ -2,6 +2,7 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 
+
 def fetch_medal_tally(df, country, year):
     medal_df = df.drop_duplicates(subset=["Team", "NOC", "Year", "Sport", "Event", "Medal"])
 
@@ -82,6 +83,8 @@ def events_played_overtime(df):
     events_over_time = events_over_time.sort_values(by="Year")
 
     return events_over_time
+
+
 def athletes_participating_overtime(df):
     unique_df3 = df.drop_duplicates(["Year", "Name"])
 
@@ -101,10 +104,8 @@ def most_successful(df, sport):
         temp_df = temp_df[temp_df['Sport'] == sport]
 
     x = temp_df["Name"].value_counts().reset_index().merge(df, on="Name", how="left")[
-        ["Name", "count", "Sport","Event", "region"]].drop_duplicates(["Name", "Sport"])
-    x.rename(columns={'count': 'Medals',"region":"Country"}, inplace=True)
+        ["Name", "count", "Sport", "Event", "region"]].drop_duplicates(["Name", "Sport"])
+    x.rename(columns={'count': 'Medals', "region": "Country"}, inplace=True)
+    x.reset_index(drop=True,inplace=True)
+    x.index=x.index+1
     return x.head(15)
-
-
-
-
