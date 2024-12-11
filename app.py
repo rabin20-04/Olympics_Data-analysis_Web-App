@@ -133,7 +133,7 @@ if user_menu == "Country-Wise-Analysis":
     st.table(top_country_wise)
 
 if user_menu == "Athlete-Wise-Analysis":
-    st.header("Distribution of Age with Medals")
+    st.header("Distribution of :green[Age] Among Medalists")
     athletes_df = df.drop_duplicates(subset=["Name", "region"])
     x1 = athletes_df["Age"].dropna()
     x2 = athletes_df[athletes_df["Medal"] == "Gold"]["Age"].dropna()
@@ -185,12 +185,14 @@ if user_menu == "Athlete-Wise-Analysis":
     # ax=sns.scatterplot(temp_df["Weight"],temp_df["Height"],hue=temp_df["Medal"],style=temp_df["Sex"],s=100)
     # st.pyplot(fig)
     st.markdown("---")
-    st.header("Most successful Athletes")
+    st.header("Distribution of :blue[Height] and :blue[Weight] in Sports")
     sport_list = df["Sport"].unique().tolist()
     sport_list.sort()
     sport_list.insert(0, "Overall")
     selected_sport = st.selectbox("Select a sport", sport_list)
-    temp_df = helper.height_vs_weight(df, selected_sport)  # This line has a redundant assignment
+    st.markdown("-------")
+    temp_df = helper.height_vs_weight(df, selected_sport)
     fig, ax = plt.subplots()
-    ax = sns.scatterplot(data=temp_df, x="Weight", y="Height", hue="Medal", style="Sex", s=100)
+    ax = sns.scatterplot(data=temp_df, x="Weight", y="Height", hue="Medal", style="Sex", s=60)
     st.pyplot(fig)
+    st.markdown("-------")
