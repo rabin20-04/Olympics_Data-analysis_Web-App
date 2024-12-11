@@ -36,7 +36,7 @@ if user_menu == "Medal Tally":
     st.table(medal_tally)
 
 if user_menu == "Overall Analysis":
-    st.title("TOP STATISTICS")
+    st.title("Olympics in Numbers")
     editions = df["Year"].unique().shape[0] - 1
     cities = df["City"].unique().shape[0]
     sports = df["Sport"].unique().shape[0]
@@ -49,10 +49,10 @@ if user_menu == "Overall Analysis":
         st.header("Editions")
         st.title(editions)
     with col2:
-        st.header("Cities")
+        st.header("Host Cities")
         st.title(cities)
     with col3:
-        st.header("Sports")
+        st.header("Total Sports")
         st.title(sports)
 
     col5, col7, col6 = st.columns(3)
@@ -92,6 +92,8 @@ if user_menu == "Overall Analysis":
     st.pyplot(fig)
 
     st.markdown("----------")
-    st.header("Top 15 athletes of all Sports")
-    y=helper.most_successful(df, "Overall")
-    st.table("y")
+    st.header("Most successful Athletes")
+
+    y=helper.most_successful(df, "Swimming")
+    st.table(y)
+
