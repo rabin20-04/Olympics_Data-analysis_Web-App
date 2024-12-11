@@ -146,7 +146,7 @@ if user_menu == "Athlete-Wise-Analysis":
                                    xaxis_title="Age", )
     st.plotly_chart(fig_athlete_wise)
     st.markdown("------")
-    st.title("Distribution of :blue[Age] in Sports")
+    st.title("Distribution of :blue[Age] in Sports (Gold Medalist)")
     sport_list = ['Basketball', 'Judo', 'Football', 'Tug-Of-War', 'Speed Skating', 'Cross Country Skiing', 'Athletics',
                   'Ice Hockey', 'Swimming', 'Badminton', 'Sailing', 'Biathlon', 'Gymnastics', 'Art Competitions',
                   'Alpine Skiing', 'Handball', 'Weightlifting', 'Wrestling', 'Luge', 'Water Polo', 'Hockey', 'Rowing',
@@ -173,3 +173,24 @@ if user_menu == "Athlete-Wise-Analysis":
         st.plotly_chart(fig_sport_wise)
     else:
         st.write("No valid data available for the distribution plot.")
+
+    # st.markdown("---")
+    # st.header("Most successful Athletes")
+    # sport_list = df["Sport"].unique().tolist()
+    # sport_list.sort()
+    # sport_list.insert(0, "Overall")
+    # selected_sport = st.selectbox("Select a sport", sport_list)
+    # temp_df =  selected_sport = helper.height_vs_weight(df, selected_sport)
+    # fig,ax=plt.subplots()
+    # ax=sns.scatterplot(temp_df["Weight"],temp_df["Height"],hue=temp_df["Medal"],style=temp_df["Sex"],s=100)
+    # st.pyplot(fig)
+    st.markdown("---")
+    st.header("Most successful Athletes")
+    sport_list = df["Sport"].unique().tolist()
+    sport_list.sort()
+    sport_list.insert(0, "Overall")
+    selected_sport = st.selectbox("Select a sport", sport_list)
+    temp_df = helper.height_vs_weight(df, selected_sport)  # This line has a redundant assignment
+    fig, ax = plt.subplots()
+    ax = sns.scatterplot(data=temp_df, x="Weight", y="Height", hue="Medal", style="Sex", s=100)
+    st.pyplot(fig)

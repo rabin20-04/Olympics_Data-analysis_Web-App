@@ -157,3 +157,13 @@ def most_successful_country_wise(df, country):
     final_df.index = final_df.index + 1
 
     return final_df.head(10)
+
+
+def height_vs_weight(df, sport):
+    athletes_df = df.drop_duplicates(subset=["Name", "region"])
+    athletes_df["Medal"].fillna("No medal", inplace=True)
+    if sport != "Overall":
+        h_vs_w_df = athletes_df[athletes_df["Sport"] == sport]
+        return h_vs_w_df
+    else:
+        return athletes_df
