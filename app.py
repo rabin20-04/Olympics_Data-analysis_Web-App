@@ -36,7 +36,7 @@ if user_menu == "Medal Tally":
     st.table(medal_tally)
 
 if user_menu == "Overall Analysis":
-    st.title("Olympics in Numbers")
+    st.title("Olympics in :blue[Numbers]")
     editions = df["Year"].unique().shape[0] - 1
     cities = df["City"].unique().shape[0]
     sports = df["Sport"].unique().shape[0]
@@ -108,7 +108,9 @@ if user_menu == "Country-Wise-Analysis":
     st.markdown("_________")
     country_list = df["region"].dropna().unique().tolist()
     country_list.sort()
-    selected_country = st.selectbox("Select a country", country_list)
+
+    st.sidebar.title("Country")
+    selected_country = st.sidebar.selectbox( "Select a :blue[country] :green[eg. USA]",country_list)
     plot_df=helper.country_vs_medal_graph(df, selected_country)
     fig4 = px.line(plot_df, x="Year", y="Medals",markers=True)
     st.title(selected_country+ " :blue[Medal tally] over the years")
