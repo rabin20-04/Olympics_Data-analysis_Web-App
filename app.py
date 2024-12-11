@@ -70,17 +70,17 @@ if user_menu == "Overall Analysis":
     st.markdown("--------------------------------------------------------------------------------")
     st.header("Participation of the countries over the Years")
     nations_over_time = helper.participating_nation_overtime(df)
-    fig1 = px.line(nations_over_time, x="Year", y="No.of Countries",markers=True)
+    fig1 = px.line(nations_over_time, x="Year", y="No.of Countries", markers=True)
     st.plotly_chart(fig1)
     st.markdown("--------------------------------------------------------------------------------")
     st.header("No.of events occurring over the Years")
     events_over_time = helper.events_played_overtime(df)
-    fig2 = px.line(events_over_time, x="Year", y="No. of Events",markers=True)
+    fig2 = px.line(events_over_time, x="Year", y="No. of Events", markers=True)
     st.plotly_chart(fig2)
     st.markdown("--------------------------------------------------------------------------------")
     st.header("Athletes participation over the Years")
     athletes_participating_overtime = helper.athletes_participating_overtime(df)
-    fig3 = px.line(athletes_participating_overtime, x="Year", y="Athletes",markers=True)
+    fig3 = px.line(athletes_participating_overtime, x="Year", y="Athletes", markers=True)
     st.plotly_chart(fig3)
     st.markdown("--------------------------------------------------------------------------------")
     st.header("Events overall representation(Every sports) Year to Sports")
@@ -103,7 +103,6 @@ if user_menu == "Overall Analysis":
     y = helper.most_successful(df, selected_sport)
     st.table(y)
 
-
 if user_menu == "Country-Wise-Analysis":
     st.header(":orange[Countries Performance] in Olympics")
     st.markdown("_________")
@@ -111,22 +110,23 @@ if user_menu == "Country-Wise-Analysis":
     country_list.sort()
     st.sidebar.markdown("---------------------------------")
     st.sidebar.title("Country")
-    selected_country = st.sidebar.selectbox( "Select a :blue[country] :green[eg. USA]",country_list)
-    plot_df=helper.country_vs_medal_graph(df, selected_country)
-    fig4 = px.line(plot_df, x="Year", y="Medals",markers=True)
-    st.title(selected_country+ " :blue[Medal tally] over the years")
+    selected_country = st.sidebar.selectbox("Select a :blue[country] :green[eg. USA]", country_list)
+    plot_df = helper.country_vs_medal_graph(df, selected_country)
+    fig4 = px.line(plot_df, x="Year", y="Medals", markers=True)
+    st.title(selected_country + " :blue[Medal tally] over the years")
     st.plotly_chart(fig4)
 
     st.markdown("----")
-    country_plot_df=helper.country_heatmap(df,selected_country)
+    country_plot_df = helper.country_heatmap(df, selected_country)
 
     if country_plot_df.empty:
         st.error(f":red[No Medal data available] for {selected_country}.")
     else:
-        st.title(selected_country+ " Excels in following :blue[Sports]")
-        fig, ax = plt.subplots(figsize=(14,14))
+        st.title(selected_country + " Excels in following :blue[Sports]")
+        fig, ax = plt.subplots(figsize=(14, 14))
         ax = sns.heatmap(country_plot_df, annot=True)
         st.pyplot(fig)
-
-
-    helpermost_successful_country_wise(df, country)
+    st.markdown("----")
+    st.title("Top :blue[10] athletes of " + selected_country)
+    top_country_wise = helper.most_successful_country_wise(df, selected_country)
+    st.table(top_country_wise)

@@ -159,4 +159,4 @@ def most_successful_country_wise(df, country):
     final_df.reset_index(drop=True, inplace=True)
     final_df.index = final_df.index + 1
 
-    return final_df
+    return final_df.head(10)
