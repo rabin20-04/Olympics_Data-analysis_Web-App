@@ -99,8 +99,14 @@ if user_menu == "Overall Analysis":
     sport_list.sort()
     sport_list.insert(0, "Overall")
     selected_sport = st.selectbox("Select a sport", sport_list)
-    y = helper.most_successful(df, selected_sport)
-    st.table(y)
+
 
 if user_menu == "Country-Wise-Analysis":
     st.title("Countries Performance in Olympics")
+    # country_list = df["region"].unique().tolist()
+    # country_list.sort()
+    # country_list.insert(0, "Overall")
+    # selected_country = st.selectbox("Select a country", country_list)
+    plot_df=helper.country_vs_medal_graph(df, "USA")
+    fig4 = px.line(plot_df, x="Year", y="Medal")
+    st.plotly_chart(fig4)
