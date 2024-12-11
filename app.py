@@ -19,6 +19,7 @@ user_menu = st.sidebar.radio(
 # --------
 
 if user_menu == "Medal Tally":
+    st.sidebar.markdown("---------------------------------")
     st.sidebar.header("Medal Tally")
     years, country = helper.country_year_list(df)
     selected_year = st.sidebar.selectbox("Select Year", years)
@@ -108,10 +109,24 @@ if user_menu == "Country-Wise-Analysis":
     st.markdown("_________")
     country_list = df["region"].dropna().unique().tolist()
     country_list.sort()
-
+    st.sidebar.markdown("---------------------------------")
     st.sidebar.title("Country")
     selected_country = st.sidebar.selectbox( "Select a :blue[country] :green[eg. USA]",country_list)
     plot_df=helper.country_vs_medal_graph(df, selected_country)
     fig4 = px.line(plot_df, x="Year", y="Medals",markers=True)
     st.title(selected_country+ " :blue[Medal tally] over the years")
     st.plotly_chart(fig4)
+
+    st.markdown("----")
+    country_plot_df=helper.country_heatmap(df,selected_country)
+
+    if country_plot_df.empty:
+        st.error(f":red[No Medal data available] for {selected_country}.")
+    else:
+        st.title(selected_country+ " Excels in following :blue[Sports]")
+        fig, ax = plt.subplots(figsize=(14,14))
+        ax = sns.heatmap(country_plot_df, annot=True)
+        st.pyplot(fig)
+
+
+    helpermost_successful_country_wise(df, country)

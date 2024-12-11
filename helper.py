@@ -127,3 +127,36 @@ def country_vs_medal_graph(df, country):
     final_plot_df = country_plot.groupby("Year").count()["Medal"].reset_index()
     final_plot_df.rename(columns={"Medal":"Medals"},inplace=True)
     return final_plot_df
+
+
+
+def country_heatmap(df, country):
+    country_heat_plot_df = df.dropna(subset=["Medal"])
+
+
+    country_heat_plot_df.drop_duplicates(subset=["Team", "NOC", "Games", "Year", "City", "Sport", "Event", "Medal"],
+                                    inplace=True)
+    country_heat_plot = country_heat_plot_df[country_heat_plot_df["region"] == country]
+    final_df=country_heat_plot.pivot_table(index="Sport",columns="Year" ,values="Medal",aggfunc="count").fillna(0)
+    return final_df
+
+def most_successful_country_wise(df, country):
+    temp_df = df.dropna(subset=["Medal"])
+
+
+    temp_df = temp_df[temp_df['region'] == country]
+
+    medal_count = temp_df["Name"].value_counts().reset_index()
+    medal_count.columns = ["Name", "Medals"]
+
+    merged_df = medal_count.merge(df, on="Name", how="left")
+
+    final_df = merged_df[["Name", "Medals", "Sport", "Event"]]
+    final_df = final_df.drop_duplicates(subset=["Name"]).head(15)
+
+    final_df.rename(columns={'region': 'Country'}, inplace=True)
+
+    final_df.reset_index(drop=True, inplace=True)
+    final_df.index = final_df.index + 1
+
+    return final_df
