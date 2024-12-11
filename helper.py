@@ -118,3 +118,10 @@ def most_successful(df, sport):
     final_df.index = final_df.index + 1
 
     return final_df
+
+def country_vs_medal_graph(df,country):
+    country_plot_df = df.dropna(subset=["Medal"])
+    country_plot_df.drop_duplicates(subset=["Team", "NOC", "Games", "Year", "City", "Sport", "Event", "Medal"],
+                                    inplace=True)
+    country_plot = country_plot_df[country_plot_df["region"] == "India"]
+    final_plot_df = country_plot.groupby("Year").count()["Medal"].reset_index()

@@ -101,3 +101,6 @@ if user_menu == "Overall Analysis":
     selected_sport = st.selectbox("Select a sport", sport_list)
     y = helper.most_successful(df, selected_sport)
     st.table(y)
+
+if user_menu == "Country-Wise-Analysis":
+    st.title("Countries Performance in Olympics")
