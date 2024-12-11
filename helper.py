@@ -50,11 +50,11 @@ def medal_tally(df):
 
 def country_year_list(df):
     year_list = df["Year"].unique().tolist()
-    year_list.sort()
+    year_list.sort(reverse=True)
 
     year_list.insert(0, "Overall")
     countries_list = np.unique(df["region"].dropna().values).tolist()
-    countries_list.sort()
+    countries_list.sort
     countries_list.insert(0, "Overall")
     return year_list, countries_list
 
@@ -79,7 +79,7 @@ def events_played_overtime(df):
 
     events_over_time.columns = ["Year", "No. of Events"]
 
-    # Sort the DataFrame by 'Year' (the actual column, not 'index')
+
     events_over_time = events_over_time.sort_values(by="Year")
 
     return events_over_time
@@ -92,7 +92,7 @@ def athletes_participating_overtime(df):
 
     athletes_participating_over_time.columns = ["Year", "Athletes"]
 
-    # Sort the DataFrame by 'Year' (the actual column, not 'index')
+
     athletes_participating_over_time = athletes_participating_over_time.sort_values(by="Year")
 
     return athletes_participating_over_time
@@ -100,12 +100,21 @@ def athletes_participating_overtime(df):
 
 def most_successful(df, sport):
     temp_df = df.dropna(subset=["Medal"])
+
     if sport != "Overall":
         temp_df = temp_df[temp_df['Sport'] == sport]
 
-    x = temp_df["Name"].value_counts().reset_index().merge(df, on="Name", how="left")[
-        ["Name", "count", "Sport", "Event", "region"]].drop_duplicates(["Name", "Sport"])
-    x.rename(columns={'count': 'Medals', "region": "Country"}, inplace=True)
-    x.reset_index(drop=True,inplace=True)
-    x.index=x.index+1
-    return x.head(15)
+    medal_count = temp_df["Name"].value_counts().reset_index()
+    medal_count.columns = ["Name", "Medals"]
+
+    merged_df = medal_count.merge(df, on="Name", how="left")
+
+    final_df = merged_df[["Name", "Medals", "Sport", "Event", "region"]]
+    final_df = final_df.drop_duplicates(subset=["Name"]).head(15)
+
+    final_df.rename(columns={'region': 'Country'}, inplace=True)
+
+    final_df.reset_index(drop=True, inplace=True)
+    final_df.index = final_df.index + 1
+
+    return final_df

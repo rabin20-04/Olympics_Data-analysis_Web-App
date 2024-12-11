@@ -85,7 +85,7 @@ if user_menu == "Overall Analysis":
     st.header("Events overall representation(Every sports) Year to Sports")
     st.markdown(" #### Just found out! ")
     st.markdown("-  Cricket has only been played once in the history of the modern Olympics.")
-    st.markdown("-  Taekwondo was added to the Olympics in 2000.")
+    st.markdown("-  Taekwondo was recently added to the Olympics in 2000.")
     fig, ax = plt.subplots(figsize=(16, 16))
     x = df.drop_duplicates(["Year", "Sport", "Event"])
     heatmap_fig = sns.heatmap(
