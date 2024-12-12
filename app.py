@@ -20,11 +20,12 @@ user_menu = st.sidebar.radio(
 # --------
 
 if user_menu == "Medal Tally":
-    st.sidebar.markdown("---------------------------------")
-    st.sidebar.header("Medal Tally")
+    # st.sidebar.markdown("---------------------------------")
+    st.sidebar.header(":violet[Medal Tally]")
     years, country = helper.country_year_list(df)
     selected_year = st.sidebar.selectbox("Select Year", years)
     selected_country = st.sidebar.selectbox("Select Country", country)
+    st.sidebar.markdown(":grey[Table presents the :orange[Medal] achievement of selected Nation]")
     medal_tally = helper.fetch_medal_tally(df, selected_country, selected_year)
     if selected_year != "Overall" and selected_country != "Overall":
         st.header("Medal Tally of " + selected_country + " in the Year " + str(selected_year))
@@ -69,15 +70,16 @@ if user_menu == "Overall Analysis":
         st.header("Athletes")
         st.title(athletes)
     st.markdown("--------------------------------------------------------------------------------")
-    st.header("Participation of the countries over the Years")
+    st.subheader("Participation of the :violet[Countries] in Olympics over the Years")
     nations_over_time = helper.participating_nation_overtime(df)
     fig1 = px.line(nations_over_time, x="Year", y="No.of Countries", markers=True)
     st.plotly_chart(fig1)
     st.markdown("--------------------------------------------------------------------------------")
-    st.header("No.of events occurring over the Years")
+    st.header("No.of :orange[Events] occurring over the Years")
     events_over_time = helper.events_played_overtime(df)
     fig2 = px.line(events_over_time, x="Year", y="No. of Events", markers=True)
     st.plotly_chart(fig2)
+    st.markdown(":grey[Chart describes numbers of events played in :blue[Olympics] each Year]")
     st.markdown("--------------------------------------------------------------------------------")
     st.header("Athletes participation over the Years")
     athletes_participating_overtime = helper.athletes_participating_overtime(df)
@@ -146,7 +148,7 @@ if user_menu == "Athlete-Wise-Analysis":
                                    xaxis_title="Age", )
     st.plotly_chart(fig_athlete_wise)
     st.markdown("------")
-    st.title("Distribution of :blue[Age] in Sports (Gold Medalist)")
+    st.header("Distribution of :blue[Age] in Sports (:orange[Gold Medalist])")
     sport_list = ['Basketball', 'Judo', 'Football', 'Tug-Of-War', 'Speed Skating', 'Cross Country Skiing', 'Athletics',
                   'Ice Hockey', 'Swimming', 'Badminton', 'Sailing', 'Biathlon', 'Gymnastics', 'Art Competitions',
                   'Alpine Skiing', 'Handball', 'Weightlifting', 'Wrestling', 'Luge', 'Water Polo', 'Hockey', 'Rowing',
@@ -197,3 +199,11 @@ if user_menu == "Athlete-Wise-Analysis":
     st.pyplot(fig)
     st.markdown("-------")
 
+    st.header("Men :green[Vs] Women participation on :blue[Sports]")
+
+    sex_df_data = helper.gender_distribution_plot(df)
+    sex_df_fig = px.line(sex_df_data, x="Year", y=["Male", "Female"], markers=True, )
+    sex_df_fig.update_layout(autosize=False, width=1000, height=600, xaxis_title="Year",
+                             yaxis_title="No. of Participants", )
+
+    st.plotly_chart(sex_df_fig)

@@ -167,3 +167,14 @@ def height_vs_weight(df, sport):
         return h_vs_w_df
     else:
         return athletes_df
+
+
+def gender_distribution_plot(df):
+    athletes_df = df.drop_duplicates(subset=["Name", "region"])
+    men = athletes_df[athletes_df["Sex"] == "M"].groupby("Year").count()["Name"].reset_index()
+    women = athletes_df[athletes_df["Sex"] == "F"].groupby("Year").count()["Name"].reset_index()
+    final_sex_df = men.merge(women, on="Year")
+    final_sex_df.rename(columns={"Name_x": "Male", "Name_y": "Female"}, inplace=True)
+    final_sex_df.fillna(0, inplace=True)
+
+    return final_sex_df
