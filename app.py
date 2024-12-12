@@ -196,3 +196,4 @@ if user_menu == "Athlete-Wise-Analysis":
     ax = sns.scatterplot(data=temp_df, x="Weight", y="Height", hue="Medal", style="Sex", s=60)
     st.pyplot(fig)
     st.markdown("-------")
+
