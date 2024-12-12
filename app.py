@@ -5,9 +5,9 @@ import seaborn as sns
 import matplotlib.pyplot as plt
 import plotly.figure_factory as ff
 
-athletes_df = pd.read_csv("/csv_files/athlete_events.csv")
+athletes_df = pd.read_csv("csv_files/athlete_events.csv")
 df = athletes_df
-region_df = pd.read_csv("/csv/noc_regions.csv")
+region_df = pd.read_csv("csv_files/noc_regions.csv")
 import preprocessor, helper
 
 st.sidebar.title("Olympics Data Analysis")
