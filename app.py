@@ -10,11 +10,16 @@ df = athletes_df
 region_df = pd.read_csv("csv_files/noc_regions.csv")
 import preprocessor, helper
 
-st.sidebar.title("Olympics Data Analysis")
 df = preprocessor.preprocess(df, region_df)
 
+
+st.sidebar.image("others/Olympic_Rings.svg", caption=None, width=100)
+st.sidebar.title("Olympics Data Analysis")
+
+
+
 user_menu = st.sidebar.radio(
-    "Select an option",
+    ":grey[Select an option]",
     (
         "Medal Tally",
         "Overall Analysis",

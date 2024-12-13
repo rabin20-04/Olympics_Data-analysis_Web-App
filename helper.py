@@ -45,7 +45,7 @@ def fetch_medal_tally(df, country, year):
     x["Bronze"] = x["Bronze"].astype("str")
     if "Year" in x.columns:
         x["Year"] = x["Year"].astype("str")
-
+    x.rename(columns={"region":"Country"},inplace=True)
     return x
 
 
