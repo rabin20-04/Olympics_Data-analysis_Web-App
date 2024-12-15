@@ -34,7 +34,7 @@ if user_menu == "Medal Tally":
     selected_year = st.sidebar.selectbox("Select Year", years)
     selected_country = st.sidebar.selectbox("Select Country", country)
     st.sidebar.markdown(
-        ":grey[Table presents the :orange[Medal] achievement of selected Nation]"
+        ":grey[Table presents the various:orange[Medal] achievements of selected Nation]"
     )
     medal_tally = helper.fetch_medal_tally(df, selected_country, selected_year)
     if selected_year != "Overall" and selected_country != "Overall":
