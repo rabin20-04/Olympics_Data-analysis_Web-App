@@ -88,7 +88,7 @@ if user_menu == "Overall Analysis":
     nations_over_time = helper.participating_nation_overtime(df)
     fig1 = px.line(nations_over_time, x="Year", y="No.of Countries", markers=True)
     st.plotly_chart(fig1)
-     st.markdown(
+    st.markdown(
         ":grey[ Chart illustrates the total number of countries taking part in the Olympics :blue[ Every Year]]"
     )
 
