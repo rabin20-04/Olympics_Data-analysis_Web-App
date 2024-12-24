@@ -62,6 +62,14 @@ if user_menu == "Overall Analysis":
     st.markdown(
         "### :violet[This page provides an insightful analysis of Olympic countries, their participation, the popularity of sports and events, and the success of athletes.]"
     )
+    st.sidebar.markdown(
+        '<hr style="border: 2px solid #555555;">', unsafe_allow_html=True
+    )
+
+    st.sidebar.markdown(
+        "- **:orange[An analysis of Olympic countries, participation, sports popularity, events, and athlete success.]**"
+    )
+
     st.markdown('<hr style="border: 1px solid #555555;">', unsafe_allow_html=True)
 
     st.title("Olympics in :blue[Numbers]")
@@ -171,9 +179,32 @@ if user_menu == "Overall Analysis":
     st.markdown(
         ":grey[Chart describes the number of :orange[Athletes] participating each year]"
     )
+    st.markdown(":violet[**Highlights:**]")
+    st.markdown(
+        "- :grey[**1900-1904**: Athlete participation was low, with many events dominated by local American athletes and limited international involvement.]"
+    )
+    st.markdown(
+        "- :grey[**1928-1932**: Athlete participation decreased due to the global economic downturn and the effects of the Great Depression, limiting international involvement.]"
+    )
+    st.markdown(
+        "- :grey[**1932-1936**: Athlete participation grew as the global situation improved and 1936 Berlin Olympics saw **:blue[the highest number of athletes up to that point.]**]"
+    )
+    st.markdown(
+        "- :grey[**1952-1956**: Athlete participation slightly decreased  due to factors like political tensions during the Cold War, logistical challenges for athletes affecting participation.]"
+    )
+    st.markdown(
+        "- :grey[**1972-1980**: Athlete participation decreased due to the 1980 boycott, limiting the number of nations and athletes involved.]"
+    )
+    st.markdown(
+        "- :grey[**Post-1980**: Athlete participation continued to rise, with more nations joining and professional athletes competing.]"
+    )
+
     st.markdown('<hr style="border: 1px solid #555555;">', unsafe_allow_html=True)
     st.header("Events overall :blue[Representation]")
 
+    st.markdown(
+        ":grey[Chart describes how the :orange[number of events per sport] has changed over time.]"
+    )
     fig, ax = plt.subplots(figsize=(16, 16))
     x = df.drop_duplicates(["Year", "Sport", "Event"])
     heatmap_fig = sns.heatmap(
@@ -183,9 +214,6 @@ if user_menu == "Overall Analysis":
         annot=True,
     )
     st.pyplot(fig)
-    st.markdown(
-        ":grey[Chart describes how the :orange[number of events per sport] has changed over time.]"
-    )
     st.markdown(":grey[Some :violet[interesting] data!]")
     st.markdown(
         "- :grey[:green[Cricket] has been played only once in the history of the modern Olympics.]"
@@ -193,9 +221,16 @@ if user_menu == "Overall Analysis":
     st.markdown(
         "- :grey[Taekwondo was :green[recently] added to the Olympics in 2000.]"
     )
+    st.markdown(
+        "- :grey[**:orange[Athletics] in 1896**: Only 12 events were held, with a continuous rise in the number of events, reaching 33 in **1948** and eventually 47 events by **2016**.]"
+    )
+    st.markdown(
+        "- :grey[**:orange[Shooting] in 1896**: Had 5 events, followed by a slight reduction to 0 in **1904**. The number of events increased again in **1920**, then decreased to zero in **1928**. Since then, the number of shooting events has been steadily increasing, reaching 15 events by **2016**.]"
+    )
 
     st.markdown('<hr style="border: 1px solid #555555;">', unsafe_allow_html=True)
-    st.header("Most :blue[successful] Athletes")
+    st.header("Top :blue[Successful] Athletes in Their Field")
+
     sport_list = df["Sport"].unique().tolist()
     sport_list.sort()
     sport_list.insert(0, "Overall")
@@ -204,6 +239,7 @@ if user_menu == "Overall Analysis":
     st.table(y)
     st.markdown('<hr style="border: 1px dashed #555555;">', unsafe_allow_html=True)
 if user_menu == "Country-Wise-Analysis":
+
     st.header(":orange[Countries Performance] in Olympics")
     st.markdown('<hr style="border: 1px solid #555555;">', unsafe_allow_html=True)
 
@@ -222,9 +258,13 @@ if user_menu == "Country-Wise-Analysis":
     )
 
     plot_df = helper.country_vs_medal_graph(df, selected_country)
-    fig4 = px.line(plot_df, x="Year", y="Medals", markers=True)
-    st.header(selected_country + " :blue[Medal tally] over the years")
-    st.plotly_chart(fig4)
+
+    if plot_df.empty:
+        st.error(selected_country + ":grey[ has not :red[won] medals so far !] ")
+    else:
+        fig4 = px.line(plot_df, x="Year", y="Medals", markers=True)
+        st.header(f"{selected_country} :blue[Medal Tally Over Time]")
+        st.plotly_chart(fig4)
 
     st.markdown(
         "- :grey[Chart represents the :violet[total] medals won, including gold, silver, and bronze, won in a :violet[specific year].]"
