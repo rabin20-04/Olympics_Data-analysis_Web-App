@@ -123,12 +123,19 @@ if user_menu == "Overall Analysis":
     )
     st.markdown(":violet[**Highlights:**]")
     st.markdown("- :grey[**1916 Olympics** were canceled due to World War I.]")
-    st.markdown("- :grey[**1940 and 1944 Olympics** were canceled due to World War II.]")
-    st.markdown("- :grey[**1980 Moscow Olympics** saw a U.S.-led boycott during the Cold War.]")
-    st.markdown("- :grey[**1984 Los Angeles Olympics** faced a counter-boycott from the Soviet bloc.]")
+    st.markdown(
+        "- :grey[**1940 and 1944 Olympics** were canceled due to World War II.]"
+    )
+    st.markdown(
+        "- :grey[**1980 Moscow Olympics** saw a U.S.-led boycott during the Cold War.]"
+    )
+    st.markdown(
+        "- :grey[**1984 Los Angeles Olympics** faced a counter-boycott from the Soviet bloc.]"
+    )
     st.markdown("- :grey[**1948 London Olympics** were the first after World War II.]")
-    st.markdown("- :grey[**Post-2000**, Olympic participation has steadily increased globally.]")
-
+    st.markdown(
+        "- :grey[**Post-2000**, Olympic participation has steadily increased globally.]"
+    )
 
     st.markdown('<hr style="border: 1px solid #555555;">', unsafe_allow_html=True)
 
@@ -139,6 +146,21 @@ if user_menu == "Overall Analysis":
     st.markdown(
         ":grey[Chart describes numbers of events played in :blue[Olympics] each Year]"
     )
+    st.markdown(":violet[**Highlights:**]")
+    st.markdown(
+        "- :grey[**1904 to 1906**: The number of events decreased due to limited international participation and several events being restricted to American athletes in 1904.]"
+    )
+
+    st.markdown(
+        "- :grey[**1908**: The number of events increased as sports like figure skating and cycling were included, reflecting growing international involvement.]"
+    )
+    st.markdown(
+        "- :grey[**1912**: The Stockholm Olympics saw the introduction of modern pentathlon and tennis as part of the growing diversity of Olympic sports.]"
+    )
+    st.markdown(
+        "- :grey[**1920 to 1924**: The number of events fell due to political and financial challenges, and some sports like polo and rugby were removed.]"
+    )
+
     st.markdown('<hr style="border: 1px solid #555555;">', unsafe_allow_html=True)
     st.header("Athletes participation over the Years")
     athletes_participating_overtime = helper.athletes_participating_overtime(df)
