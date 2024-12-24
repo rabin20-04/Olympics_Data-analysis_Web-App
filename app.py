@@ -39,7 +39,7 @@ if user_menu == "Medal Tally":
     years, country = helper.country_year_list(df)
     selected_year = st.sidebar.selectbox("Select Year", years)
     selected_country = st.sidebar.selectbox("Select Country", country)
-   
+
     medal_tally = helper.fetch_medal_tally(df, selected_country, selected_year)
     if selected_year != "Overall" and selected_country != "Overall":
         st.header(
@@ -49,15 +49,21 @@ if user_menu == "Medal Tally":
         st.header("Overall Medal Tally in the year " + str(selected_year))
     elif selected_year == "Overall" and selected_country == "Overall":
         st.header("Overall Medal Tally")
-        st.markdown("-  :grey[eg. USA has won a total of :orange[1,035 gold medals], 708 silver medals, and 802 bronze medals, with a total of 2,545 medals. and Russia has won a total of :orange[592 gold medals], 487 silver medals, and 498 bronze medals, with a total of 1,577 medals.]")
+        st.markdown(
+            "-  :grey[eg. USA has won a total of :orange[1,035 gold medals], 708 silver medals, and 802 bronze medals, with a total of 2,545 medals. and Russia has won a total of :orange[592 gold medals], 487 silver medals, and 498 bronze medals, with a total of 1,577 medals.]"
+        )
 
-        
     elif selected_year == "Overall" and selected_country != "Overall":
         st.header("Overall Performance of " + selected_country)
 
     st.table(medal_tally)
     st.markdown('<hr style="border: 1px dashed #555555;">', unsafe_allow_html=True)
 if user_menu == "Overall Analysis":
+    st.markdown(
+        "### :violet[This page provides an insightful analysis of Olympic countries, their participation, the popularity of sports and events, and the success of athletes.]"
+    )
+    st.markdown('<hr style="border: 1px solid #555555;">', unsafe_allow_html=True)
+
     st.title("Olympics in :blue[Numbers]")
     editions = df["Year"].unique().shape[0] - 1
     cities = df["City"].unique().shape[0]
@@ -88,12 +94,24 @@ if user_menu == "Overall Analysis":
     with col6:
         st.header("Athletes")
         st.title(athletes)
-    st.markdown("- :grey[**Editions** represents total no. of times Olympics have successfully happened till 2018.]")
-    st.markdown("- :grey[**Host Cities** refers to the total number of cities where the Olympics have been hosted.]")
-    st.markdown("- :grey[**Total Sports** indicates the total number of sports included in the Olympics.]")
-    st.markdown("- :grey[**Events** represents the number of events held during the Olympics.]")
-    st.markdown("- :grey[**Nations** refers to the number of nations that have participated in the Olympics.]")
-    st.markdown("- :grey[**Athletes** indicates the total number of athletes who have competed in the Olympics.]")   
+    st.markdown(
+        "- :grey[**Editions** represents total no. of times Olympics have successfully happened till 2018.]"
+    )
+    st.markdown(
+        "- :grey[**Host Cities** refers to the total number of cities where the Olympics have been hosted.]"
+    )
+    st.markdown(
+        "- :grey[**Total Sports** indicates the total number of sports included in the Olympics.]"
+    )
+    st.markdown(
+        "- :grey[**Events** represents the number of events held during the Olympics.]"
+    )
+    st.markdown(
+        "- :grey[**Nations** refers to the number of nations that have participated in the Olympics.]"
+    )
+    st.markdown(
+        "- :grey[**Athletes** indicates the total number of athletes who have competed in the Olympics.]"
+    )
     st.markdown('<hr style="border: 1px solid #555555;">', unsafe_allow_html=True)
 
     st.subheader("Participation of the :violet[Countries] in Olympics over the Years")
@@ -101,8 +119,16 @@ if user_menu == "Overall Analysis":
     fig1 = px.line(nations_over_time, x="Year", y="No.of Countries", markers=True)
     st.plotly_chart(fig1)
     st.markdown(
-        ":grey[ Chart illustrates the total number of countries taking part in the Olympics :blue[ Every Year]]"
+        "- :grey[ Chart illustrates the total number of countries taking part in the Olympics :blue[ Every Year]]"
     )
+    st.markdown(":violet[**Highlights:**]")
+    st.markdown("- :grey[**1916 Olympics** were canceled due to World War I.]")
+    st.markdown("- :grey[**1940 and 1944 Olympics** were canceled due to World War II.]")
+    st.markdown("- :grey[**1980 Moscow Olympics** saw a U.S.-led boycott during the Cold War.]")
+    st.markdown("- :grey[**1984 Los Angeles Olympics** faced a counter-boycott from the Soviet bloc.]")
+    st.markdown("- :grey[**1948 London Olympics** were the first after World War II.]")
+    st.markdown("- :grey[**Post-2000**, Olympic participation has steadily increased globally.]")
+
 
     st.markdown('<hr style="border: 1px solid #555555;">', unsafe_allow_html=True)
 
