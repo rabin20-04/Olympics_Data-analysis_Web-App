@@ -5,6 +5,7 @@ import seaborn as sns
 import matplotlib.pyplot as plt
 import plotly.figure_factory as ff
 
+st.set_page_config(layout="wide")
 athletes_df = pd.read_csv("csv_files/athlete_events.csv")
 df = athletes_df
 region_df = pd.read_csv("csv_files/noc_regions.csv")
@@ -15,7 +16,6 @@ df = preprocessor.preprocess(df, region_df)
 
 st.sidebar.image("others/Olympic_Rings.svg", caption=None, width=100)
 st.sidebar.title("Olympics Data Analysis")
-
 
 
 user_menu = st.sidebar.radio(
@@ -29,13 +29,17 @@ user_menu = st.sidebar.radio(
 )
 
 if user_menu == "Medal Tally":
+    st.markdown(
+        " #### :violet[Table presents various Medal achievements of selected Nation]  "
+    )
+    st.markdown(
+        "-   :blue[ Total :orange[Gold Medals] , Siver Medals and Bronze Medals won in the Olympics so far!]"
+    )
     st.sidebar.header(":violet[Medal Tally]")
     years, country = helper.country_year_list(df)
     selected_year = st.sidebar.selectbox("Select Year", years)
     selected_country = st.sidebar.selectbox("Select Country", country)
-    st.sidebar.markdown(
-        ":grey[Table presents the various :orange[Medal] achievements of selected Nation]"
-    )
+   
     medal_tally = helper.fetch_medal_tally(df, selected_country, selected_year)
     if selected_year != "Overall" and selected_country != "Overall":
         st.header(
@@ -45,6 +49,9 @@ if user_menu == "Medal Tally":
         st.header("Overall Medal Tally in the year " + str(selected_year))
     elif selected_year == "Overall" and selected_country == "Overall":
         st.header("Overall Medal Tally")
+        st.markdown("-  :grey[eg. USA has won a total of :orange[1,035 gold medals], 708 silver medals, and 802 bronze medals, with a total of 2,545 medals. and Russia has won a total of :orange[592 gold medals], 487 silver medals, and 498 bronze medals, with a total of 1,577 medals.]")
+
+        
     elif selected_year == "Overall" and selected_country != "Overall":
         st.header("Overall Performance of " + selected_country)
 
@@ -81,7 +88,12 @@ if user_menu == "Overall Analysis":
     with col6:
         st.header("Athletes")
         st.title(athletes)
-
+    st.markdown("- :grey[**Editions** represents total no. of times Olympics have successfully happened till 2018.]")
+    st.markdown("- :grey[**Host Cities** refers to the total number of cities where the Olympics have been hosted.]")
+    st.markdown("- :grey[**Total Sports** indicates the total number of sports included in the Olympics.]")
+    st.markdown("- :grey[**Events** represents the number of events held during the Olympics.]")
+    st.markdown("- :grey[**Nations** refers to the number of nations that have participated in the Olympics.]")
+    st.markdown("- :grey[**Athletes** indicates the total number of athletes who have competed in the Olympics.]")   
     st.markdown('<hr style="border: 1px solid #555555;">', unsafe_allow_html=True)
 
     st.subheader("Participation of the :violet[Countries] in Olympics over the Years")
@@ -143,21 +155,29 @@ if user_menu == "Overall Analysis":
     y = helper.most_successful(df, selected_sport)
     st.table(y)
     st.markdown('<hr style="border: 1px dashed #555555;">', unsafe_allow_html=True)
-
 if user_menu == "Country-Wise-Analysis":
     st.header(":orange[Countries Performance] in Olympics")
     st.markdown('<hr style="border: 1px solid #555555;">', unsafe_allow_html=True)
+
     country_list = df["region"].dropna().unique().tolist()
     country_list.sort()
+
+    default_country = "USA"
+    if default_country in country_list:
+        default_index = country_list.index(default_country)
+    else:
+        default_index = 3
     st.sidebar.markdown('<hr style="border: 2px solid grey;">', unsafe_allow_html=True)
     st.sidebar.title("Country")
     selected_country = st.sidebar.selectbox(
-        "Select a :blue[Country] :grey[eg. try USA]", country_list
+        "Select a :blue[Country] ", country_list, index=default_index
     )
+
     plot_df = helper.country_vs_medal_graph(df, selected_country)
     fig4 = px.line(plot_df, x="Year", y="Medals", markers=True)
     st.header(selected_country + " :blue[Medal tally] over the years")
     st.plotly_chart(fig4)
+
     st.markdown(
         "- :grey[Chart represents the :violet[total] medals won, including gold, silver, and bronze, won in a :violet[specific year].]"
     )
@@ -178,10 +198,12 @@ if user_menu == "Country-Wise-Analysis":
     st.markdown('<hr style="border: 1px solid #555555;">', unsafe_allow_html=True)
     st.title("Top :blue[10] athletes of " + selected_country)
     top_country_wise = helper.most_successful_country_wise(df, selected_country)
+
     if not top_country_wise.empty:
         st.table(top_country_wise)
     else:
         st.write(selected_country + ":red[ has not won medals so far !] ")
+
     st.markdown('<hr style="border: 1px dashed #555555;">', unsafe_allow_html=True)
 
 if user_menu == "Athlete-Wise-Analysis":
