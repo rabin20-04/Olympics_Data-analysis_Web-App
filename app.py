@@ -5,7 +5,6 @@ import seaborn as sns
 import matplotlib.pyplot as plt
 import plotly.figure_factory as ff
 
-st.set_page_config(layout="wide")
 athletes_df = pd.read_csv("csv_files/athlete_events.csv")
 df = athletes_df
 region_df = pd.read_csv("csv_files/noc_regions.csv")
