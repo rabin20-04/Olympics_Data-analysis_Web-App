@@ -5,7 +5,6 @@ import seaborn as sns
 import matplotlib.pyplot as plt
 import plotly.figure_factory as ff
 
-st.set_page_config(layout="wide")
 athletes_df = pd.read_csv("csv_files/athlete_events.csv")
 df = athletes_df
 region_df = pd.read_csv("csv_files/noc_regions.csv")
@@ -295,6 +294,8 @@ if user_menu == "Country-Wise-Analysis":
     st.markdown('<hr style="border: 1px dashed #555555;">', unsafe_allow_html=True)
 
 if user_menu == "Athlete-Wise-Analysis":
+    st.sidebar.markdown('<hr style="border: 1px dashed #555555;">', unsafe_allow_html=True)
+    st.sidebar.markdown(":blue[Discover the insights about] :violet[Athletes]")
     st.header("Distribution of :green[Age] Among Medalists")
     athletes_df = df.drop_duplicates(subset=["Name", "region"])
     x1 = athletes_df["Age"].dropna()
@@ -316,8 +317,23 @@ if user_menu == "Athlete-Wise-Analysis":
     st.plotly_chart(fig_athlete_wise)
 
     st.markdown(
-        "- :grey[Chart illustrates the probability of winning a :violet[specific medal at specific ages].]"
+        "- :grey[Chart illustrates the probability of winning a :blue[specific medal at specific ages].]"
     )
+    st.markdown(":violet[**Highlights:**]")
+
+    st.markdown(
+        "- :grey[In overall analysis, **22 years** is the age with the highest probability of winning a gold medal.]"
+    )
+    st.markdown(
+        "- :grey[Athletes generally start showing potential for gold medal victories around **18 years of age**.]"
+    )
+    st.markdown(
+        "- :grey[After **35 years**, the likelihood of winning a gold medal significantly diminishes.]"
+    )
+    st.markdown(
+        "- :grey[The distribution highlights a **peak performance window** for athletes between the ages of **18 and 35**.]"
+    )
+
     st.markdown('<hr style="border: 1px solid #555555;">', unsafe_allow_html=True)
     st.header("Distribution of :blue[Age] in Sports (:orange[Gold Medalist])")
     sport_list = [
@@ -401,7 +417,26 @@ if user_menu == "Athlete-Wise-Analysis":
     # ax=sns.scatterplot(temp_df["Weight"],temp_df["Height"],hue=temp_df["Medal"],style=temp_df["Sex"],s=100)
     # st.pyplot(fig)
     st.markdown(
-        "- :grey[Chart roughly indicates which :violet[age is optimal] for winning a gold medal in that sport.]"
+        "- :grey[Chart roughly indicates which :blue[age is optimal] for winning a gold medal in that sport.]"
+    )
+    st.markdown(":violet[**Highlights:**]")
+    st.markdown(
+        "- :grey[**Rhythmic Gymnastics** has the highest chances of winning medals at a young age, usually between **15–20 years**.]"
+    )
+    st.markdown(
+        "- :grey[Sports like **Synchronized Swimming** and **Figure Skating** also peak around **18–22 years**, showing that athletes in these sports shine early in their careers.]"
+    )
+    st.markdown(
+        "- :grey[In sports like **Archery** and **Shooting**, athletes have a longer career span, with good chances of winning medals even in their **30s and beyond**.]"
+    )
+    st.markdown(
+        "- :grey[Physically demanding sports like **Cycling**, **Boxing**, and **Rowing** have their sweet spot for medal wins between **20–30 years**, where strength and endurance are key.]"
+    )
+    st.markdown(
+        "- :grey[**Equestrianism** is unique—it allows athletes to compete and win medals well into their **40s and 50s**, thanks to the combination of skill and teamwork with the horse.]"
+    )
+    st.markdown(
+        "- :grey[Most other sports, like **Tennis**, **Volleyball**, and **Hockey**, see athletes peak between **18–30 years**, with medal chances dropping off after **35 years**.]"
     )
 
     st.markdown('<hr style="border: 1px solid #555555;">', unsafe_allow_html=True)
@@ -418,9 +453,26 @@ if user_menu == "Athlete-Wise-Analysis":
     )
     st.pyplot(fig)
     st.markdown(
-        "- :grey[ chart roughly suggests the ideal height and weight for ] "
+        "- :grey[ Chart roughly suggests the ideal height and weight for ] "
         + selected_sport
         + " :grey[ that can help win  medal in the sport.] "
+    )
+    st.markdown(":violet[**Highlights:**]")
+
+    st.markdown(
+        "- :grey[**Most women athletes who win medals** tend to be on the shorter and lighter side - typically around 140-170cm tall and 25-75kg. They're killing it in these ranges!]"
+    )
+    st.markdown(
+        "- :grey[**The big guys (180-220cm, 150-200kg)** are mainly in sports like wrestling and throwing events. Not too many medals here though - it's a pretty specific group.]"
+    )
+    st.markdown(
+        "- :grey[**Want to know where most medals come from?** Right in the middle! Athletes around 165-185cm tall and 60-90kg seem to have the best shot at winning.]"
+    )
+    st.markdown(
+        "- :grey[**Men get to be all over the place** with height and weight, but women tend to cluster in specific zones. Probably because different sports have different sweet spots.]"
+    )
+    st.markdown(
+        "- :grey[**Super interesting:** being really tall or really heavy isn't always better. Most medal winners have pretty average builds - just shows you don't need extreme measurements to be awesome at sports!]"
     )
 
     st.markdown('<hr style="border: 1px solid #555555;">', unsafe_allow_html=True)
@@ -443,4 +495,24 @@ if user_menu == "Athlete-Wise-Analysis":
     )
 
     st.plotly_chart(sex_df_fig)
+    st.markdown(":violet[**Highlights:**]")
+
+    st.markdown(
+        "- :grey[**Women's participation started near zero in 1900** but saw significant growth after 1920, reaching about 2,500 participants by 1925.]"
+    )
+    st.markdown(
+        "- :grey[**A major increase occurred in the 1940s**, with women's participation jumping from 1,500 to 3,500 participants.]"
+    )
+    st.markdown(
+        "- :grey[**Men's participation remained relatively low until 1960**, then showed steady growth from 1970 onwards, reaching around 3,000 participants by 2020.]"
+    )
+    st.markdown(
+        "- :grey[**The 1980s marked a notable peak in women's participation** at approximately 4,500 participants.]"
+    )
+    st.markdown(
+        "- :grey[**By 2020, participation levels became more balanced**, with both men and women having around 3,000-4,000 participants.]"
+    )
+    st.markdown(
+        "- :grey[**The data shows some fluctuations in the 2000s**, with both men's and women's participation experiencing periodic decreases and increases.]"
+    )
     st.markdown('<hr style="border: 1px dashed #555555;">', unsafe_allow_html=True)
